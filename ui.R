@@ -1,12 +1,20 @@
+#####################################################################################
+#
+# Crimes against women in India : A shiny app with choropleth and chart visualizations
+# Designed and developed by : Tinniam V Ganesh
+# Date : 15 Oct 2015
+# File : ui.R
+#
+#####################################################################################
 library(shinyjs)
-# Define UI for application that draws a histogram
+# Create a multi-page with tabs for each page
 shinyUI(navbarPage(useShinyjs(),
                    "Crimes against women in India",
                    tabPanel("Crime Map of India",
                             # Application title
                             titlePanel("Crime Map of India"),
                             
-                            # Sidebar with a slider input for the number of bins
+                            # Create a drop down list box and a radio button group
                             fluidRow(
                                 column(4,
                                        code(id = "inputBox", "Please wait, loading ..."),
@@ -28,37 +36,35 @@ shinyUI(navbarPage(useShinyjs(),
                                                     selected = "RAPE")
                                 ),
                                 
-                                # Show a plot of the generated distribution
-                                
+                                # Show the choropleth map for the crime in the chosen year                               
                                 column(4,
                                        plotOutput("distPlot")
                                 ),
                                 column(7, offset=4,
                                        tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                       tags$h5((tags$i("Oct 14,2015")))
+                                       tags$h5((tags$i("Oct 15,2015")))
                                 )
                                 
                                 
                             )      
                             
-                            
-                            
+                                                       
                    ),
+                   # Create a spearate tab for displaying charts on statewise crimes
                    tabPanel("Statewise crimes",
                             
                             tabPanel("Statewise crimes",
-                                     # Application title
+                                     # Set the title
                                      titlePanel("Crimes in each state"),
                                      
-                                     # Sidebar with a slider input for the number of bins
+                                     # 
                                      fluidRow(
                                          column(4, offset=5,
-                                                tags$h5(("Data source:https://data.gov.in"))
-                                                
+                                                tags$h5(("Data source:https://data.gov.in"))                                               
                                          ),
+                                         # Create a drop down of states and radio buttons for crimes
                                          column(4,
-                                                code(id = "inputBox1", "Please wait, loading ..."),
-                                                
+                                                code(id = "inputBox1", "Please wait, loading ..."),                                                
                                                 hidden(selectizeInput(
                                                     'state', label = "State", choices = NULL,multiple=FALSE,selected="Andhra Pradesh",
                                                     options = list(create = TRUE,placeholder = 'Choose the state'))
@@ -77,22 +83,22 @@ shinyUI(navbarPage(useShinyjs(),
                                                              selected = "RAPE")
                                          ),
                                          
-                                         # Show a plot of the generated distribution
-                                         
+                                         # Display chart                                  
                                          column(6,
                                                 plotOutput("statePlot")
                                          ),
                                          
                                          column(7, offset=4,
                                                 tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                tags$h5((tags$i("Oct 14,2015")))
+                                                tags$h5((tags$i("Oct 15,2015")))
                                          )
                                          
-                                     )       
+                                    )       
                                      
                             )
                             
                    ),
+                   # Set the About tab
                    tabPanel('About',
                             h2("Crimes against women in India"),
                             p("This Shiny app displays the  map of crimes against women in India. There are
@@ -104,8 +110,7 @@ shinyUI(navbarPage(useShinyjs(),
                                p("The data for this Shiny app has been taken from https://data.gov.in/catalog/crime-against-women"),
                                p("More details about this app and for other posts, see my blog
                                http://gigadom.wordpress.com/")
-                   )
-                   
+                   )                   
                    
 ))
 

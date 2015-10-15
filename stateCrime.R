@@ -1,5 +1,6 @@
 library(ggplot2)
 
+# Plot the chart
 plotCrime <- function(df, theState,theCrime){
     
     if(theState==""){
@@ -9,45 +10,42 @@ plotCrime <- function(df, theState,theCrime){
         theCrime="RAPE"
     }
     print(theState)
-    #print(theCrime)
-    #print(dim(df))
-    # Create a data frame for 
+    # Create a subset frame based on the user choice 
     r <- filter(df,state==theState,crime==theCrime)
-    #print(head(r))
+    
     r <- r[4:21]
     crm <- t(r)
-    year <- as.matrix(c(2001:2018))
-    
+    year <- as.matrix(c(2001:2018))   
     crm <- cbind(year,crm)
-    crimeRate <- as.data.frame(crm)
-    #print(head(crimeRate))
+    crimeRate <- as.data.frame(crm) 
     names(crimeRate) <- c("Year","Crimes")
-    #qplot(Year,Crime,data=crimeRate,geom=c("point","smooth"),method="lm")
+    
+    # Draw a plot with regression line of the smoothing
     title <- paste("Incidence of ",tolower(theCrime),"in ",theState)
     g <- ggplot(crimeRate, aes(Year,Crimes))
     g+geom_point() + geom_smooth(method="lm") + ylab(theCrime) +
         ggtitle(title)
-       
     
 }
 
-
+# Plot the choropleth map
 plotMap <- function(df,theCrime="RAPE",theYear="X2015"){
     if(theYear==""){
         theYear<-"2001"
     }
-    print(theYear)
-    print(theCrime)
+    # Create a dataframe based on the crime 
     r <- filter(df,crime==theCrime)
     r <- r[-36,]
     # Set the year for which the crime is required
     year <- paste("X",theYear)
     year <- str_replace_all(year," ","")
-    print(year)
-    a <-colnames(r)==year
-    # Use which to get the column number for the selection
-    crimeSet <- select(r,state,crime,which(a))
     
+    # Subset columns with the chosen year
+    a <-colnames(r)==year
+    
+    
+    # Make the names in the crimes.csv consistent with the names in IND_adm1.shp
+    crimeSet <- select(r,state,crime,which(a))    
     crimeSet$state = as.character(r$state)
     crimeSet[crimeSet$state=="D&N Haveli",]$state = "Dadra and Nagar Haveli"
     crimeSet[crimeSet$state=="Daman & Diu",]$state = "Daman and Diu"
@@ -56,28 +54,27 @@ plotMap <- function(df,theCrime="RAPE",theYear="X2015"){
     crimeSet[crimeSet$state=="Delhi UT",]$state = "Delhi"
     crimeSet[crimeSet$state=="Odisha",]$state = "Orissa"
     crimeSet[crimeSet$state=="Uttarakhand",]$state = "Uttaranchal"
-    print(dim(crimeSet))
-    print(names(crimeSet))
     
+    # Compute min and max to set the range of shades
     names(crimeSet) <- c("state","crime","yearlyCrimes")
-    
     m= max(crimeSet$yearlyCrimes)
     n = min(crimeSet$yearlyCrimes)
     mid = (m+n)/2
-    
     
     
     b <- head(arrange(crimeSet,desc(yearlyCrimes)),5)
     c <- paste(b$state,"(",b$yearlyCrimes,")")
     stateCrime <- str_replace_all(c," ","")
     
+    # Create a data frame to primt the top 5 ofenders
     labels <- data.frame(
         xc = c(90,90,90,90,90), 
         yc = c(7.0,5.6,4.2,2.8,1.4), 
         label = as.vector(stateCrime) 
         
     )
-    print(c)
+    
+    # Plot the choropleth
     title <- paste("Incidence of",tolower(theCrime),"in India in ",theYear)
     ggplot(data = crimeSet)  + 
         geom_map(data = crimeSet, aes(map_id = state, fill = yearlyCrimes), col="brown",  map = ind, ) + 
