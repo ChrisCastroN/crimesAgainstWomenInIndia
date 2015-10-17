@@ -23,7 +23,7 @@ shinyUI(navbarPage(useShinyjs(),
                                            options = list(create = TRUE,placeholder = 'Choose the year'))
                                            
                                        ),
-                                       radioButtons("radio", label = h3("Radio buttons"),
+                                       radioButtons("radio", label = h3("Crime"),
                                                     choices = list("RAPE" = "RAPE",
                                                                    "DOWRY DEATH" = "DOWRY DEATH", 
                                                                    "ASSAULT ON WOMEN" = "ASSAULT ON WOMEN WITH INTENT TO OUTRAGE HER MODESTY",
@@ -70,7 +70,7 @@ shinyUI(navbarPage(useShinyjs(),
                                                     options = list(create = TRUE,placeholder = 'Choose the state'))
                                                     
                                                 ),
-                                                radioButtons("radio1", label = h3("Radio buttons"),
+                                                radioButtons("radio1", label = h3("Crime"),
                                                              choices = list("RAPE" = "RAPE",
                                                                             "DOWRY DEATH" = "DOWRY DEATH", 
                                                                             "ASSAULT ON WOMEN" = "ASSAULT ON WOMEN WITH INTENT TO OUTRAGE HER MODESTY",

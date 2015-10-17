@@ -84,7 +84,10 @@ plotMap <- function(df,theCrime="RAPE",theYear="X2015"){
         ggtitle(title) +
         geom_text(aes(label="Top offenders",90,8.6))+
         geom_text(data = labels, aes(x = xc, y = yc, label = label))+
-        geom_text(aes(label="Data source:https://data.gov.in",90,38,size=0.8))
+        geom_text(aes(label="Data source:https://data.gov.in",90,38,size=0.8)) +
+        geom_text(aes(label="J&K borders incorrect",76,35,size=0.8)) +
+        geom_text(aes(label="To be fixed.",76,34,size=0.8))
+    
     
     
 }
