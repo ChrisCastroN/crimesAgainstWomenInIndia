@@ -47,13 +47,16 @@ plotMap <- function(df,theCrime="RAPE",theYear="X2015"){
     # Make the names in the crimes.csv consistent with the names in IND_adm1.shp
     crimeSet <- select(r,state,crime,which(a))    
     crimeSet$state = as.character(r$state)
-    crimeSet[crimeSet$state=="D&N Haveli",]$state = "Dadra and Nagar Haveli"
-    crimeSet[crimeSet$state=="Daman & Diu",]$state = "Daman and Diu"
-    crimeSet[crimeSet$state=="A&N Islands",]$state = "Andaman and Nicobar"
-    crimeSet[crimeSet$state=="Jammu & Kashmir",]$state = "Jammu and Kashmir"
-    crimeSet[crimeSet$state=="Delhi UT",]$state = "Delhi"
+    crimeSet[crimeSet$state=="D&N Haveli",]$state = "DADRA AND NAGAR HAVELI"
+    crimeSet[crimeSet$state=="Daman & Diu",]$state = "DAMAN AND DIU"
+    crimeSet[crimeSet$state=="A&N Islands",]$state = "ANDAMAN AND NICOBAR ISLANDS"
+    crimeSet[crimeSet$state=="Jammu & Kashmir",]$state = "Jammu And Kashmir"
+    crimeSet[crimeSet$state=="Delhi UT",]$state = "Nct of Delhi"
     crimeSet[crimeSet$state=="Odisha",]$state = "Orissa"
-    crimeSet[crimeSet$state=="Uttarakhand",]$state = "Uttaranchal"
+    crimeSet[crimeSet$state=="Uttarakhand",]$state = "Uttarakhand"
+    crimeSet[crimeSet$state=="Lakshadweep",]$state = "LAKSHADWEEP"
+    crimeSet[crimeSet$state=="Chandigarh",]$state = "CHANDIGARH"
+    crimeSet[crimeSet$state=="Puducherry",]$state = "Pondicherry"
     
     # Compute min and max to set the range of shades
     names(crimeSet) <- c("state","crime","yearlyCrimes")
@@ -85,8 +88,8 @@ plotMap <- function(df,theCrime="RAPE",theYear="X2015"){
         geom_text(aes(label="Top offenders",90,8.6))+
         geom_text(data = labels, aes(x = xc, y = yc, label = label))+
         geom_text(aes(label="Data source:https://data.gov.in",90,38,size=0.8)) +
-        geom_text(aes(label="J&K borders incorrect",76,35,size=0.8)) +
-        geom_text(aes(label="To be fixed.",76,34,size=0.8))
+        xlab("Longitude") + ylab("Latitude")
+        
     
     
     

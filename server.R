@@ -13,9 +13,8 @@ library(ggplot2)
 library(dplyr)
 library(stringr)
 # Load the India shape files
-load(file="./IND_adm/IND_adm1.RData")
-ind <- fortify(ind, region = "NAME_1")
 
+load(file="./INDIA_shp/IND_shp.RData")
 # Load the crime data
 load(file="./data/crimes.RData")
 names(b)
